@@ -1,19 +1,65 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Car List</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Car List{% endblock title %}
+
+{% block content %}
+
+<!-- jumbotron -->
+<div class="jumbotron jumbotron-fluid">
+<div class="container  text-sm-center">
+	<div class="container">
+	<div class="row">
+		<div class="col-sm"><img  src="https://static.mycity.travel/manage/uploads/8/58/67037/1/musee-autos_2000.jpg" width="100%" height="500px" style="  box-shadow: 0 6px 20px 0 rgba(255, 255, 255, 0.7), 0 6px 20px 0 rgba(255, 255, 255, 0.7);"></div>
+	</div>
+</div>
+</div>
+</div>
+
+<h1 id="Cars" class="display-4 text-center my-5 text-muted" style="text-shadow: 1px 1px 2px black, 0 0 25px gray, 0 0 5px LightGray;">Our Cars</h1>
+<div class="row">
 	{% for car in cars %}
-		<a href="{{car.get_absolute_url}}">
-			<h1>
-				{{car.make}} - {{car.model}}
-				<small>
-					{{car.year}}
-				</small>
-			</h1>
-		</a>
-		<hr>
+  <div class="col-md-6 col-lg-4">
+    <div class="card mb-3">
+     <div class="card-body">
+			 <a href="{{car.get_absolute_url}}">
+ 				<img src="{{car.img.url}}" style="width:100%">
+ 				<h1>
+ 					{{car.make}} - {{car.model}}
+ 					<small>
+ 						{{car.year}}
+ 					</small>
+ 				</h1>
+ 			</a>
+       </div>
+   </div>
+  </div>
 	{% endfor %}
-</body>
-</html>
+
+  </div>
+
+	<div class="pagination">
+			<span class="step-links">
+					{% if cars.has_previous %}
+							<a href="?page=1"><button type="button" class="btn btn-warning">first</button></a>
+							<a href="?page={{ cars.previous_page_number }}"><button type="button" class="btn btn-success">previous</button></a>
+					{% endif %}
+
+					<span class="current">
+							Page {{ cars.number }} of {{ cars.paginator.num_pages }}.
+					</span>
+
+					{% if cars.has_next %}
+							<a href="?page={{ cars.next_page_number }}"><button type="button" class="btn btn-primary">next</button></a>
+							<a href="?page={{ cars.paginator.num_pages }}"><button type="button"  class="btn btn-danger">last</button></a>
+					{% endif %}
+			</span>
+	</div>
+	<div id="about" class="row py-4 text-muted">
+  <div class="col-md col-xl-5">
+    <p><strong>About Our Store</strong></p>
+    <p>The best store in the world that you can find everything here.</p>
+  </div>
+
+</div>
+
+{% endblock content %}
