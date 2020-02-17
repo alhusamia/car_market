@@ -16,13 +16,23 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="#home">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link active" href="{% url 'car-list'%}">Home <span class="sr-only">(current)</span></a>
           <a class="nav-item nav-link" href="#about">about</a>
-          <a class="nav-item nav-link" href="{% url 'car-create'%}">Creat</a>
+          <a class="nav-item nav-link" href="{% url 'car-create'%}">Create</a>
         </div>
       </div>
    </div>
 </nav>
+<div class="container">
+  {% if messages %}
+    {% for message in messages %}
+      <div class="container">
+        {{message}}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+</div>
   <div class="container pt-5 text-sm-center">
     {% block content %}
 

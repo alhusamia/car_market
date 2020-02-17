@@ -10,7 +10,9 @@
 				{{car.year}}
 			</small>
 		</h1>
+		{% if car.img %}
 		<img src="{{car.img.url}}" >
+		{% endif %}
 		<a href="{% url 'car-delete' car.id %}">
 			<button type="button" class="btn btn-danger">Delete</button>
 		</a>

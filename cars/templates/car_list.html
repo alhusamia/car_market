@@ -22,8 +22,10 @@
     <div class="card mb-3">
      <div class="card-body">
 			 <a href="{{car.get_absolute_url}}">
- 				<img src="{{car.img.url}}" style="width:100%">
- 				<h1>
+				 {% if car.img %}
+ 					<img src="{{car.img.url}}" style="width:100%">
+					{% endif %}
+				<h1>
  					{{car.make}} - {{car.model}}
  					<small>
  						{{car.year}}

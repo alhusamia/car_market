@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Car
 from .forms import CarForm
 from django.core.paginator import Paginator
+from django.contrib import messages
 
 def car_list(request):
 	cars = Car.objects.all()
@@ -10,6 +11,7 @@ def car_list(request):
 	page_obj = paginator.get_page(page_number)
 
 	context = {
+
         "cars":page_obj,
     }
 	return render(request, 'car_list.html', context)
@@ -29,6 +31,7 @@ def car_create(request):
 		form = CarForm(request.POST,request.FILES)
 		if form.is_valid():
 			form.save()
+			messages.success(request, 'Profile details created.')
 			return redirect('car-list')
 	context = {
         "form":form,
@@ -40,17 +43,20 @@ def car_update(request, car_id):
 	car = Car.objects.get(id=car_id)
 	form = CarForm(instance=car)
 	if request.method == "POST":
-		form = CarForm(request.POST, instance=car )
+		form = CarForm(request.POST,request.FILES, instance=car )
 		if form.is_valid():
 			form.save()
+			messages.success(request, 'Profile details updated.')
 			return redirect('car-list')
 	context = {
         "car": car,
         "form":form,
+
     }
 	return render(request, 'update.html', context)
 
 def car_delete(request, car_id):
 	car = Car.objects.get(id=car_id)
 	car.delete()
+	messages.success(request, 'Profile details deleted.')
 	return redirect('car-list')
